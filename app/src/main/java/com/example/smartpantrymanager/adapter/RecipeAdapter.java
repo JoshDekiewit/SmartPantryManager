@@ -13,6 +13,11 @@ import com.example.smartpantrymanager.model.Recipe;
 
 import java.util.List;
 
+import android.content.Context;
+import android.content.Intent;
+
+import com.example.smartpantrymanager.RecipeDetailActivity;
+
 public class RecipeAdapter
         extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
@@ -44,6 +49,22 @@ public class RecipeAdapter
         holder.textViewRecipeName.setText(
                 recipe.getName()
         );
+        holder.itemView.setOnClickListener(view -> {
+
+            Context context = view.getContext();
+
+            Intent intent = new Intent(
+                    context,
+                    RecipeDetailActivity.class
+            );
+
+            intent.putExtra(
+                    "recipe_id",
+                    recipe.getId()
+            );
+
+            context.startActivity(intent);
+        });
     }
 
     @Override
