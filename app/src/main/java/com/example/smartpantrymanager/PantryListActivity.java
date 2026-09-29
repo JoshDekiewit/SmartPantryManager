@@ -2,6 +2,7 @@ package com.example.smartpantrymanager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -65,6 +66,18 @@ public class PantryListActivity extends AppCompatActivity {
 
                     startActivity(intent);
                 });
+
+        Button buttonAllRecipes = findViewById(R.id.buttonAllRecipes);
+
+        buttonAllRecipes.setOnClickListener(v -> {
+            Intent intent = new Intent(
+                    PantryListActivity.this,
+                    AllRecipesActivity.class
+            );
+
+            startActivity(intent);
+        });
+
     }
 
     private void loadPantryItems() {
