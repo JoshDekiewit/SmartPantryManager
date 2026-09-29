@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smartpantrymanager.database.DatabaseSeeder;
 import com.example.smartpantrymanager.adapter.PantryAdapter;
 import com.example.smartpantrymanager.database.DatabaseHelper;
 import com.example.smartpantrymanager.model.PantryItem;
@@ -26,6 +27,11 @@ public class PantryListActivity extends AppCompatActivity {
 
         // Initialise the database helper first
         databaseHelper = new DatabaseHelper(this);
+
+        DatabaseSeeder databaseSeeder =
+                new DatabaseSeeder(databaseHelper);
+
+        databaseSeeder.seedRecipes();
 
         // Find the RecyclerView
         recyclerViewPantry = findViewById(R.id.recyclerViewPantry);

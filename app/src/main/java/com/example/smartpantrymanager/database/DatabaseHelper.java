@@ -3,6 +3,10 @@ package com.example.smartpantrymanager.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+
+import com.example.smartpantrymanager.model.Recipe;
+import com.example.smartpantrymanager.model.RecipeIngredient;
+
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -203,4 +207,172 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return rowsAffected;
     }
+
+    public long addRecipe(Recipe recipe) {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put("name", recipe.getName());
+        values.put("instructions", recipe.getInstructions());
+
+        return db.insert("recipes", null, values);
+    }
+
+    public long addRecipeIngredient(RecipeIngredient ingredient) {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put("recipe_id", ingredient.getRecipeId());
+        values.put("ingredient_name", ingredient.getIngredientName());
+        values.put("quantity", ingredient.getQuantity());
+        values.put("unit", ingredient.getUnit());
+
+        return db.insert(
+                "recipe_ingredients",
+                null,
+                values
+        );
+    }
+
+    public List<Recipe> getAllRecipes() {
+
+        List<Recipe> recipes = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.query(
+                "recipes",
+                null,
+                null,
+                null,
+                null,
+                null,
+                "name ASC"
+        );
+
+        if (cursor.moveToFirst()) {
+
+            do {
+
+                int id =
+                        cursor.getInt(
+                                cursor.getColumnIndexOrThrow("id")
+                        );
+
+                String name =
+                        cursor.getString(
+                                cursor.getColumnIndexOrThrow("name")
+                        );
+
+                String instructions =
+                        cursor.getString(
+                                cursor.getColumnIndexOrThrow("instructions")
+                        );
+
+                recipes.add(
+                        new Recipe(
+                                id,
+                                name,
+                                instructions
+                        )
+                );
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return recipes;
+    }
+
+    public List<RecipeIngredient> getRecipeIngredients(
+            int recipeId) {
+
+        List<RecipeIngredient> ingredients =
+                new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.query(
+                "recipe_ingredients",
+                null,
+                "recipe_id = ?",
+                new String[]{
+                        String.valueOf(recipeId)
+                },
+                null,
+                null,
+                "id ASC"
+        );
+
+        if (cursor.moveToFirst()) {
+
+            do {
+
+                int id =
+                        cursor.getInt(
+                                cursor.getColumnIndexOrThrow("id")
+                        );
+
+                String ingredientName =
+                        cursor.getString(
+                                cursor.getColumnIndexOrThrow(
+                                        "ingredient_name"
+                                )
+                        );
+
+                double quantity =
+                        cursor.getDouble(
+                                cursor.getColumnIndexOrThrow(
+                                        "quantity"
+                                )
+                        );
+
+                String unit =
+                        cursor.getString(
+                                cursor.getColumnIndexOrThrow("unit")
+                        );
+
+                ingredients.add(
+                        new RecipeIngredient(
+                                id,
+                                recipeId,
+                                ingredientName,
+                                quantity,
+                                unit
+                        )
+                );
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return ingredients;
+    }
+
+    public boolean recipesExist() {
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT COUNT(*) FROM recipes",
+                null
+        );
+
+        boolean exists = false;
+
+        if (cursor.moveToFirst()) {
+            exists = cursor.getInt(0) > 0;
+        }
+
+        cursor.close();
+
+        return exists;
+    }
+
 }
