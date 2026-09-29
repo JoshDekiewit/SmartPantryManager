@@ -54,6 +54,17 @@ public class PantryListActivity extends AppCompatActivity {
 
         // Load pantry items after the database has been initialised
         loadPantryItems();
+
+        findViewById(R.id.buttonSuggestedRecipes)
+                .setOnClickListener(view -> {
+
+                    Intent intent = new Intent(
+                            PantryListActivity.this,
+                            SuggestedRecipesActivity.class
+                    );
+
+                    startActivity(intent);
+                });
     }
 
     private void loadPantryItems() {
@@ -74,4 +85,5 @@ public class PantryListActivity extends AppCompatActivity {
             loadPantryItems();
         }
     }
+
 }

@@ -39,4 +39,12 @@
         android:src="@android:drawable/ic_input_add"
         android:layout_gravity="bottom|end" />
 
+    <Button
+        android:id="@+id/buttonSuggestedRecipes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="16dp"
+        android:text="Suggested Recipes" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
