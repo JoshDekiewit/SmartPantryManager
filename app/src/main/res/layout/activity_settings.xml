@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Smart Pantry Manager"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:paddingBottom="8dp" />
 
@@ -28,7 +28,7 @@
         android:id="@+id/textViewAppDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Manage your pantry and find recipes you can make with the ingredients you have available."
+        android:text="Manage your pantry and find recipes based on the ingredients you have available."
         android:textSize="16sp"
         android:paddingBottom="24dp" />
 
@@ -36,8 +36,23 @@
         android:id="@+id/textViewDatabaseInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Storage: Local SQLite Database"
+        android:text="Database: Local SQLite Database"
         android:textSize="16sp"
-        android:paddingBottom="16dp" />
+        android:paddingBottom="12dp" />
+
+    <TextView
+        android:id="@+id/textViewRecipeInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recipes: 15 seeded recipes"
+        android:textSize="16sp"
+        android:paddingBottom="12dp" />
+
+    <TextView
+        android:id="@+id/textViewMatchingInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recipe matching: Strict ingredient and quantity matching"
+        android:textSize="16sp" />
 
 </LinearLayout>
